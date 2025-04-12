@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Login UI</title>
+  <style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+    body {
+        
+      font-family: 'Inter', sans-serif;
+      background-image: url('/download.jpeg');
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-size: cover;
+      background-position: center;
+      flex-direction: column;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.3); /* translucent white */
+      backdrop-filter: blur(10px); /* softens background */
+      -webkit-backdrop-filter: blur(10px); /* for Safari */
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* subtle shadow for depth */
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 100%;
+      width: 350px;
+      margin-top: 20px;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #fff;;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #4c53af;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #4c53af70;
+    }
+
+    .form-group input[readonly] {
+      background-color: #f4f4f4; /* Make the feedback input look like a non-editable field */
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Nexa Voucher Payment</h2>
+    <form id="paymentForm">
+      <div class="form-group">
+        <label for="number">Phone Number</label>
+        <input type="tel" id="number" name="number" placeholder="e.g. 024xxxxxxx" required>
+      </div>
+      <div class="form-group">
+        <label for="subscription">Select Subscription</label>
+        <select id="subscription" name="subscription" required>
+          <option value="90">ONE MONTH subscription: GHS 90</option>
+          <option value="49">TWO WEEKS subscription: GHS 49</option>
+          <option value="25">ONE WEEK subscription: GHS 25</option>
+          <option value="5">ONE DAY subscription: GHS 5</option>
+          <option value="2">HOURLY BUNDLE: GHS 2</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn">Pay Now</button>
+    </form>
+
+    <div class="form-group">
+      <label for="feedbackMessage">Feedback Message</label>
+      <input type="text" id="feedbackMessage" name="feedbackMessage" readonly>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();  // Prevents the default form submission behavior
+
+      // Get the input values from the form
+      const number = document.getElementById("number").value;
+      const subscriptionValue = document.getElementById("subscription").value;
+      
+      // Map the subscription value to its corresponding label
+      const subscriptionText = document.querySelector(`#subscription option[value="${subscriptionValue}"]`).textContent;
+
+      // Store the feedback message in a variable
+      const feedbackMessage = `${subscriptionText} sent to ${number}.`;
+
+      // Display the feedback message inside the input field
+      const feedbackInput = document.getElementById("feedbackMessage");
+      feedbackInput.value = feedbackMessage;  // Sets the value of the input field
+
+      // Optional: Show an alert for confirmation
+      alert("Your payment has been successfully processed!");
+
+      // Optionally, reset the form (if you want it to clear after submission)
+      document.getElementById("paymentForm").reset();
+    });
+  </script>
+</body>
+</html>
